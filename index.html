@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            14% { color: #ff7f00; }
+            28% { color: #ffff00; }
+            42% { color: #00ff00; }
+            57% { color: #0000ff; }
+            71% { color: #4b0082; }
+            85% { color: #9400d3; }
+            100% { color: #ff0000; }
+        }
+        @keyframes fly {
+            0% { transform: translate(-50px, 50px) rotate(0deg); }
+            25% { transform: translate(30vw, 10vh) rotate(90deg); }
+            50% { transform: translate(80vw, 20vh) rotate(180deg); }
+            75% { transform: translate(30vw, 30vh) rotate(270deg); }
+            100% { transform: translate(-50px, 50px) rotate(360deg); }
+        }
+        @keyframes sway {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        .pulsing {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .rainbow-text {
+            animation: rainbow 4s linear infinite;
+        }
+        .butterfly {
+            position: absolute;
+            animation: fly 15s linear infinite;
+            z-index: 10;
+        }
+        .flower {
+            position: absolute;
+            animation: sway 5s ease-in-out infinite alternate;
+            z-index: 10;
+        }
+        .heart {
+            position: absolute;
+            animation: float 2s ease-in-out infinite, pulse 1.5s ease-in-out infinite;
+            z-index: 10;
+        }
+        .page {
+            transition: all 0.8s ease;
+        }
+        #birthday-card {
+            perspective: 1000px;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #card-inner {
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            width: 100%;
+            height: 100%;
+        }
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .back {
+            transform: rotateY(180deg);
+            overflow-y: auto;
+        }
+        .flipped {
+            transform: rotateY(180deg);
+        }
+        .kea-container {
+            position: relative;
+            width: 150px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        .cake-container {
+            width: 180px;
+            margin: 0 auto;
+        }
+        @media (max-width: 640px) {
+            .kea-container {
+                width: 120px;
+                height: 100px;
+            }
+            .cake-container {
+                width: 140px;
+            }
+            h1 {
+                font-size: 2rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-pink-100 to-purple-100 min-h-screen overflow-hidden">
+    <div id="birthday-card" class="w-full h-screen flex items-center justify-center">
+        <div id="card-inner" class="relative w-full h-full">
+            <!-- Front Page (Surprise) -->
+            <div id="front-page" class="front bg-gradient-to-br from-blue-100 to-green-100">
+                <div class="text-center mb-6">
+                    <div class="text-xl md:text-2xl font-bold text-gray-800 mb-2"></div>
+                    <div class="text-lg md:text-xl text-gray-600"></div>
+                </div>
+                
+                <!-- Kea Bird -->
+                <div class="kea-container">
+                    <div id="kea" class="floating pulsing cursor-pointer" onclick="flipCard()">
+                        <div class="relative">
+                            <!-- Body -->
+                            <div class="w-full h-24 bg-gradient-to-b from-orange-400 to-orange-300 rounded-full relative">
+                                <!-- Head -->
+                                <div class="w-3/5 h-16 bg-gradient-to-b from-orange-500 to-orange-400 rounded-full absolute -top-6 left-1/4">
+                                    <!-- Eye -->
+                                    <div class="w-3 h-3 bg-black rounded-full absolute top-5 right-5"></div>
+                                    <!-- Beak -->
+                                    <div class="w-8 h-4 bg-yellow-500 absolute top-5 -left-3 rounded-l-full"></div>
+                                </div>
+                                <!-- Wing -->
+                                <div class="w-3/5 h-10 bg-gradient-to-b from-orange-600 to-orange-500 rounded-full absolute top-5 -left-3"></div>
+                                <!-- Tail -->
+                                <div class="w-2/5 h-5 bg-gradient-to-b from-orange-600 to-orange-500 rounded-full absolute bottom-3 -right-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8 text-gray-700">
+                    <i class="fas fa-hand-point-up text-2xl mr-2"></i>
+                    <span class="font-semibold">Touch Here</span>
+                </div>
+                
+                <!-- Floating elements -->
+                <div class="heart text-pink-500 text-xl top-1/4 left-1/4"><i class="fas fa-heart"></i></div>
+                <div class="heart text-red-500 text-2xl top-1/3 right-1/4"><i class="fas fa-heart"></i></div>
+                <div class="heart text-purple-500 text-3xl bottom-1/4 left-1/3"><i class="fas fa-heart"></i></div>
+            </div>
+            
+            <!-- Back Page (Birthday Wish) -->
+            <div id="back-page" class="back bg-gradient-to-br from-pink-100 to-purple-100">
+                <div class="max-w-md mx-auto px-4 py-8 relative">
+                    <!-- Rainbow -->
+                    <div class="w-full h-4 mb-6 relative overflow-hidden rounded-full">
+                        <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-yellow-500,green-500,blue-500,indigo-500 to-purple-500 opacity-30 rounded-full"></div>
+                    </div>
+                    
+                    <!-- Title -->
+                    <h1 class="text-3xl md:text-4xl font-bold text-center rainbow-text mb-4">Happy 19th Birthday Thirandi!</h1>
+                    
+                    <!-- Cake -->
+                    <div class="flex justify-center mb-6">
+                        <div class="cake-container relative">
+                            <!-- Cake base -->
+                            <div class="w-full h-16 bg-gradient-to-b from-pink-300 to-pink-400 rounded-lg relative">
+                                <!-- Frosting -->
+                                <div class="w-full h-4 bg-pink-200 rounded-t-lg absolute -top-2"></div>
+                                <!-- Candle -->
+                                <div class="w-3 h-12 bg-gradient-to-b from-yellow-100 to-yellow-300 absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full">
+                                    <!-- Flame -->
+                                    <div class="w-2 h-4 bg-gradient-to-b from-yellow-300 to-orange-500 rounded-full absolute -top-1 left-1/2 transform -translate-x-1/2"></div>
+                                </div>
+                            </div>
+                            <!-- Cake plate -->
+                            <div class="w-full h-3 bg-gray-200 rounded-full absolute -bottom-1 left-1/2 transform -translate-x-1/2" style="width: 110%;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Message -->
+                    <div class="bg-white bg-opacity-70 rounded-xl p-4 mb-6 shadow-lg">
+                        <p class="text-base md:text-lg text-gray-800 mb-3">Dear Thirandi,</p>
+                        <p class="text-base md:text-lg text-gray-800 mb-3">On your special day, may your life be filled with:</p>
+                        
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-heart text-pink-500 text-xl mr-2"></i>
+                                <span class="text-gray-800">Love</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-laugh-beam text-yellow-500 text-xl mr-2"></i>
+                                <span class="text-gray-800">Joy</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-magic text-purple-500 text-xl mr-2"></i>
+                                <span class="text-gray-800">Magic</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-blue-500 text-xl mr-2"></i>
+                                <span class="text-gray-800">Success</span>
+                            </div>
+                        </div>
+                        
+                        <p class="text-base md:text-lg text-gray-800 mb-3">May your 19th year be as bright and beautiful as you are! Wishing you a day filled with laughter, love, and all the happiness in the world.</p>
+                        <p class="text-base md:text-lg text-gray-800">With warmest wishes,</p>
+                        <p class="text-base md:text-lg font-semibold text-pink-600">Asela Mihiranga</p>
+                    </div>
+                    
+                    <!-- Decorative elements -->
+                    <div class="flex justify-center space-x-6 mb-6">
+                        <div class="text-3xl text-pink-500"><i class="fas fa-gift"></i></div>
+                        <div class="text-3xl text-yellow-500"><i class="fas fa-star"></i></div>
+                        <div class="text-3xl text-purple-500"><i class="fas fa-birthday-cake"></i></div>
+                        <div class="text-3xl text-blue-500"><i class="fas fa-music"></i></div>
+                    </div>
+                    
+                    <!-- Countdown -->
+                    <div class="text-center text-gray-700 mb-6">
+                        <p class="mb-1 text-sm">Celebrating your special day in:</p>
+                        <div id="countdown" class="text-xl font-bold rainbow-text">00:00:00</div>
+                    </div>
+                </div>
+                
+                <!-- Butterflies -->
+                <div class="butterfly text-2xl text-pink-400 top-1/4 left-1/4"><i class="fas fa-butterfly"></i></div>
+                <div class="butterfly text-2xl text-purple-400 top-1/3 right-1/4" style="animation-delay: 2s;"><i class="fas fa-butterfly"></i></div>
+                <div class="butterfly text-2xl text-blue-400 bottom-1/4 left-1/3" style="animation-delay: 4s;"><i class="fas fa-butterfly"></i></div>
+                
+                <!-- Flowers -->
+                <div class="flower text-3xl text-pink-300 top-1/5 right-1/5"><i class="fas fa-spa"></i></div>
+                <div class="flower text-3xl text-yellow-300 bottom-1/5 left-1/5" style="animation-delay: 1s;"><i class="fas fa-spa"></i></div>
+                <div class="flower text-3xl text-purple-300 top-3/4 right-1/4" style="animation-delay: 2s;"><i class="fas fa-spa"></i></div>
+                
+                <!-- Hearts -->
+                <div class="heart text-red-400 text-2xl top-1/6 left-1/6"><i class="fas fa-heart"></i></div>
+                <div class="heart text-pink-400 text-3xl bottom-1/6 right-1/6" style="animation-delay: 0.5s;"><i class="fas fa-heart"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function flipCard() {
+            document.getElementById('card-inner').classList.add('flipped');
+            startCountdown();
+            createConfetti();
+        }
+        
+        function startCountdown() {
+            // Set the date we're counting down to (today at 23:59:59)
+            const now = new Date();
+            const countDownDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+            
+            // Update the count down every 1 second
+            const x = setInterval(function() {
+                // Get today's date and time
+                const now = new Date().getTime();
+                
+                // Find the distance between now and the count down date
+                const distance = countDownDate - now;
+                
+                // Time calculations for hours, minutes and seconds
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Display the result
+                document.getElementById("countdown").innerHTML = 
+                    (hours < 10 ? "0" + hours : hours) + ":" + 
+                    (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+                    (seconds < 10 ? "0" + seconds : seconds);
+                
+                // If the count down is finished, clear interval
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("countdown").innerHTML = "HAPPY BIRTHDAY!";
+                }
+            }, 1000);
+        }
+        
+        function createConfetti() {
+            // Create 30 confetti elements
+            for (let i = 0; i < 30; i++) {
+                createConfettiPiece();
+            }
+        }
+        
+        function createConfettiPiece() {
+            const types = ['heart', 'star', 'circle'];
+            const colors = ['red', 'pink', 'purple', 'yellow', 'blue'];
+            const element = document.createElement('div');
+            
+            // Random properties
+            const type = types[Math.floor(Math.random() * types.length)];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 15 + 8;
+            const duration = Math.random() * 10 + 5;
+            const delay = Math.random() * 2;
+            const left = Math.random() * 100;
+            
+            // Set styles
+            element.style.position = 'absolute';
+            element.style.left = left + 'vw';
+            element.style.top = '-30px';
+            element.style.width = size + 'px';
+            element.style.height = size + 'px';
+            element.style.opacity = Math.random() * 0.7 + 0.3;
+            element.style.animation = `float ${duration}s ease-in ${delay}s forwards`;
+            element.style.zIndex = '20';
+            
+            // Set content based on type
+            if (type === 'heart') {
+                element.innerHTML = `<i class="fas fa-heart" style="color:${color}; font-size:${size}px"></i>`;
+            } else if (type === 'star') {
+                element.innerHTML = `<i class="fas fa-star" style="color:${color}; font-size:${size}px"></i>`;
+            } else {
+                element.style.borderRadius = '50%';
+                element.style.backgroundColor = color;
+            }
+            
+            // Add to back page
+            document.getElementById('back-page').appendChild(element);
+            
+            // Remove element after animation completes
+            setTimeout(() => {
+                element.remove();
+            }, (duration + delay) * 1000);
+        }
+        
+        // Make the kea clickable on touch devices
+        document.getElementById('kea').addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            flipCard();
+        });
+    </script>
+</body>
+</html>
